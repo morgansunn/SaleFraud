@@ -140,8 +140,8 @@ public class bent {
             stage.setScene(scene);
             stage.show();
         }
-    }
-}
+    } // end of main
+} //end of class
     
 
 
