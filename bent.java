@@ -88,8 +88,13 @@ public class bent {
             e.printStackTrace();
         } 
     }
-
+    /*
+    * Nicole Padoun - Export Digit Frequency into API 
+    * @param String one, two, three, four, five, six, seven, eight, nine - printed out digit values (only used for graphics)
+    * @param o, t, thr, f, fi, s, sev, ei, n - values of percentage 
+    */
     public static void bendford() {
+        //setup of final variables
         final static String one = "1";
         final static String two = "2";
         final static String three = "3";
@@ -99,23 +104,13 @@ public class bent {
         final static String seven = "7";
         final static String eight = "8";
         final static String nine = "9";
-        //variables needed for barchart height aka the results but this is how I set it up
-        //you can change the variable type for the result values if needed (im not sure what your code looks like)
-        //may add (please add) the values
-        //any necessary change to blend into code is welcomed
-        final static String RESULT1_STRING;
-        final static String RESULT2_STRING;
-        final static String RESULT3_STRING;
-        final static String RESULT4_STRING;
-        final static String RESULT5_STRING;
-        final static String RESULT6_STRING;
-        final static String RESULT7_STRING;
-        final static String RESULT8_STRING;
-        final static String RESULT9_STRING;
-
-
+    
+        /*
+        * Nicole Padoun - start of graph
+        * not sure how to docstring for javafx coding but this is the set up of graphics
+        */
         @Override public void start(Stage stage) {
-            stage.setTitle("Bar Chart Sample");
+            stage.setTitle("Bar Chart Sample"); //setting titles
             final CategoryAxis xAxis = new CategoryAxis();
             final NumberAxis yAxis = new NumberAxis();
             final BarChart<String,Number> bc = 
@@ -127,16 +122,17 @@ public class bent {
             bc.setBarGap(3);
 
             XYChart.Series series1 = new XYChart.Series();
-            series1.setName("results");       
-            series1.getData().add(new XYChart.Data(one, RESULT1_STRING));
-            series1.getData().add(new XYChart.Data(two, RESULT2_STRING));
-            series1.getData().add(new XYChart.Data(three, RESULT3_STRING));
-            series1.getData().add(new XYChart.Data(four, RESULT4_STRING));
-            series1.getData().add(new XYChart.Data(five, RESULT5_STRING)); 
-            series1.getData().add(new XYChart.Data(six, RESULT6_STRING));    
-            series1.getData().add(new XYChart.Data(seven, RESULT7_STRING));    
-            series1.getData().add(new XYChart.Data(eight, RESULT8_STRING));    
-            series1.getData().add(new XYChart.Data(nine, RESULT9_STRING));    
+            series1.setName("results");
+            //set up of all bars in bar chart
+            series1.getData().add(new XYChart.Data(one, o));
+            series1.getData().add(new XYChart.Data(two, t));
+            series1.getData().add(new XYChart.Data(three, thr));
+            series1.getData().add(new XYChart.Data(four, f));
+            series1.getData().add(new XYChart.Data(five, fi)); 
+            series1.getData().add(new XYChart.Data(six, s));    
+            series1.getData().add(new XYChart.Data(seven, sev));    
+            series1.getData().add(new XYChart.Data(eight, ei));    
+            series1.getData().add(new XYChart.Data(nine, n));    
 
 
             Scene scene  = new Scene(bc,800,600);
