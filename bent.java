@@ -1,9 +1,17 @@
 import java.util.*;
 import java.io.*;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage
 
 public class bent {
     public static void main(String[] args) {
         reader();
+        launch(args);
     }
 
     public static void reader() {
@@ -82,7 +90,60 @@ public class bent {
     }
 
     public static void bendford() {
+        final static String one = "1";
+        final static String two = "2";
+        final static String three = "3";
+        final static String four = "4";
+        final static String five = "5";
+        final static String six = "6";
+        final static String seven = "7";
+        final static String eight = "8";
+        final static String nine = "9";
+        //variables needed for barchart height aka the results but this is how I set it up
+        //you can change the variable type for the result values if needed (im not sure what your code looks like)
+        //may add (please add) the values
+        //any necessary change to blend into code is welcomed
+        final static String RESULT1_STRING;
+        final static String RESULT2_STRING;
+        final static String RESULT3_STRING;
+        final static String RESULT4_STRING;
+        final static String RESULT5_STRING;
+        final static String RESULT6_STRING;
+        final static String RESULT7_STRING;
+        final static String RESULT8_STRING;
+        final static String RESULT9_STRING;
 
+
+        @Override public void start(Stage stage) {
+            stage.setTitle("Bar Chart Sample");
+            final CategoryAxis xAxis = new CategoryAxis();
+            final NumberAxis yAxis = new NumberAxis();
+            final BarChart<String,Number> bc = 
+                new BarChart<>(xAxis,yAxis);
+              //slight hard coding here just to establish proper titles (easiest way on javafx)
+            bc.setTitle("Benford's law results");
+            xAxis.setLabel("Digit");       
+            yAxis.setLabel("Percent");
+            bc.setBarGap(3);
+
+            XYChart.Series series1 = new XYChart.Series();
+            series1.setName("results");       
+            series1.getData().add(new XYChart.Data(one, RESULT1_STRING));
+            series1.getData().add(new XYChart.Data(two, RESULT2_STRING));
+            series1.getData().add(new XYChart.Data(three, RESULT3_STRING));
+            series1.getData().add(new XYChart.Data(four, RESULT4_STRING));
+            series1.getData().add(new XYChart.Data(five, RESULT5_STRING)); 
+            series1.getData().add(new XYChart.Data(six, RESULT6_STRING));    
+            series1.getData().add(new XYChart.Data(seven, RESULT7_STRING));    
+            series1.getData().add(new XYChart.Data(eight, RESULT8_STRING));    
+            series1.getData().add(new XYChart.Data(nine, RESULT9_STRING));    
+
+
+            Scene scene  = new Scene(bc,800,600);
+            bc.getData().addAll(series1);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 }
     
