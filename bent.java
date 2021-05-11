@@ -11,7 +11,7 @@ import javafx.stage.Stage
 public class bent {
     public static void main(String[] args) {
         reader();
-        launch(args);
+        launch(args); //launches graphic
     }
 
     public static void reader() {
