@@ -1,20 +1,79 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
+import java.util.Arrays;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
+import javafx.stage.Stage;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.stage.Stage;
 
-public class bent {
-    public static void main(String[] args) {
-        reader();
-        launch(args); //launches graphic
+public class App extends Application {
+    @Override
+    public void start(Stage stage) {
+        int j = 1;
+        int[] count = reader();
+        float total = 0;
+        float[] percentage = new float[9];
+
+        for (int i : count) {
+            total += i;
+        } 
+
+        for (int i = 0; i < count.length; i++) {
+            percentage[i] = ((float) count[i] / total) * 100;
+        }
+
+        // Defining the axes
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setCategories(
+                FXCollections.<String>observableArrayList(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9")));
+        xAxis.setLabel("Digits");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Percent");
+
+        // Creating the Bar chart
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("BendFord Digit Comparison");
+
+        // Prepare XYChart.Series objects by setting data
+        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+        
+        for(int i=0; i<count.length; ++i) {
+            String sj = String.valueOf(j);
+            series1.getData().add(new XYChart.Data<>(sj, percentage[i]));
+            j++;
+        }
+        // Setting the data to bar chart
+        barChart.getData().addAll(series1);
+
+        // Creating a Group object
+        Group root = new Group(barChart);
+
+        // Creating a scene object
+        Scene scene = new Scene(root, 600, 400);
+
+        // Setting title to the Stage
+        stage.setTitle("Bendford");
+
+        // Adding scene to the stage
+        stage.setScene(scene);
+
+        // Displaying the contents of the stage
+        stage.show();
     }
 
-    public static void reader() {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    public static int[] reader() {
+        Scanner ui = new Scanner(System.in);
+
         int o = 0;
         int t = 0;
         int thr = 0;
@@ -25,11 +84,15 @@ public class bent {
         int ei = 0;
         int n = 0;
         int[] counter = new int[9];
-        
+
         BufferedReader reader;
         try {
+            System.out.println("Please select the file you want to read, also make sure its in relative path:");
+            System.out.println("Example: finalBendFord/src/sales1.csv");
+
+            String read = ui.nextLine();
             // Scans/Reads the postal_codes.csv file
-            reader = new BufferedReader(new FileReader("sales.csv"));
+            reader = new BufferedReader(new FileReader(read));
             // Checks if the user input is a null value
             String line = reader.readLine();
             while (line != null) {
@@ -41,11 +104,11 @@ public class bent {
                 }
                 // Checks if the user input is equal to the line in CSV
                 String format = line.substring(4);
-                String fdigit = format.substring(0,1);
+                String fdigit = format.substring(0, 1);
 
                 int inum = Integer.parseInt(fdigit);
 
-                switch(inum) {
+                switch (inum) {
                     case 1:
                         ++o;
                         counter[0] = o;
@@ -81,13 +144,17 @@ public class bent {
                     default:
                         ++n;
                         counter[8] = n;
-                }   
+                }
             }
             // Catches exceptions and prints out the exception
         } catch (IOException e) {
             e.printStackTrace();
-        } 
+        }
+        return counter;
     }
+
+      
+}
     /*
     * Nicole Padoun - Export Digit Frequency into API 
     * @param String one, two, three, four, five, six, seven, eight, nine - printed out digit values (only used for graphics)
