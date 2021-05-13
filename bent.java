@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
+//Morgan Start
 public class App extends Application {
     
         /**
@@ -188,9 +189,7 @@ public class App extends Application {
         ui.close();
         return counter;
     }
-
-      
-}
+} //Morgan End
     /*
     * Nicole Padoun - Export Digit Frequency into API 
     * @param String one, two, three, four, five, six, seven, eight, nine - printed out digit values (only used for graphics)
