@@ -12,17 +12,27 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 public class App extends Application {
+    
+        /**
+    * This method takes in value from reader() in which is an array to do further 
+    * calculations. It ultimately creates an xychart bar graph structure and displays graph
+    * @return      launch
+    * @see         Bargraph
+    */
     @Override
     public void start(Stage stage) {
+        //Initializing important variables
         int j = 1;
         int[] count = reader();
         float total = 0;
         float[] percentage = new float[9];
 
+        //Finding out the amount of first digits
         for (int i : count) {
             total += i;
         } 
 
+        //Finding the percentage for each digit at i
         for (int i = 0; i < count.length; i++) {
             percentage[i] = ((float) count[i] / total) * 100;
         }
@@ -31,8 +41,10 @@ public class App extends Application {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setCategories(
                 FXCollections.<String>observableArrayList(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9")));
+        //label
         xAxis.setLabel("Digits");
 
+        //label
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Percent");
 
@@ -43,11 +55,21 @@ public class App extends Application {
         // Prepare XYChart.Series objects by setting data
         XYChart.Series<String, Number> series1 = new XYChart.Series<>();
         
+        //Inputs the percentage into bargraph data, also printing out the numerical values of the percentage
         for(int i=0; i<count.length; ++i) {
             String sj = String.valueOf(j);
             series1.getData().add(new XYChart.Data<>(sj, percentage[i]));
+            System.out.println(j+": "+percentage[i]+"%");
             j++;
         }
+
+        //Displays the possibility of fraud occurring
+        if(percentage[0]>29&&percentage[0]<32) {
+            System.out.println("Fraud likely did not occur with given data");
+        } else {
+            System.out.println("There is a great change fraud occured within given data");
+        }
+
         // Setting the data to bar chart
         barChart.getData().addAll(series1);
 
@@ -68,12 +90,22 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        //Starts the program
         launch(args);
     }
     
+    /**
+     * This method uses switch case to determine the amount of times
+     * a digit appears in a number. Then returns that array
+     * 
+     * 
+     * @return int[] counter
+     * @see n/a
+     */
     public static int[] reader() {
         Scanner ui = new Scanner(System.in);
 
+        //Used to find the amount of fd appearance in each digit
         int o = 0;
         int t = 0;
         int thr = 0;
@@ -102,12 +134,14 @@ public class App extends Application {
                     break;
                     // Breaks if the value is null
                 }
-                // Checks if the user input is equal to the line in CSV
+                // Nested substring to get the first digit
                 String format = line.substring(4);
                 String fdigit = format.substring(0, 1);
 
+                //Since the substring is type string, typecast to int 
                 int inum = Integer.parseInt(fdigit);
 
+                //Switch case to add up the total times a first digit appears
                 switch (inum) {
                     case 1:
                         ++o;
@@ -150,6 +184,8 @@ public class App extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // Returns array counter that holds the amount of appearances for all numbers
+        ui.close();
         return counter;
     }
 
